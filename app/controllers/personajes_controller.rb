@@ -1,8 +1,12 @@
 class PersonajesController < ApplicationController
   def index
+    @personajes = Personaje.all
+    render json: @personajes
   end
 
   def show
+    @personaje = Personaje.find(params[:id])
+    render json: @personaje, serializer: UnaPersonaSerializer
   end
 
   def new
