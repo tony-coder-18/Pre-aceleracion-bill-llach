@@ -22,4 +22,5 @@
 class Produccion < ApplicationRecord
   has_many :personaje_producciones
   has_many :personajes, through: :personaje_producciones
+  belongs_to :genero
 end
