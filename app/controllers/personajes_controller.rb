@@ -10,8 +10,13 @@ class PersonajesController < ApplicationController
   end
 
   def create
-    @personaje = Personaje.create(personaje_params)
-    render json: @personaje
+    @personaje = Personaje.new(personaje_params)
+
+    if @personaje.save
+      render json: @personaje, status: :created
+    else 
+      render error: {error: 'Unable to create user'}, status: 400
+    end
   end
 
   def update
@@ -28,7 +33,7 @@ class PersonajesController < ApplicationController
   private
 
   def personaje_params
-    params.require(:personaje).permit(:nombre,:imagen,:edad, :peso, :historia)
+    params.require(:personaje).permit(:nombre,:imagen,:edad, :peso, :historia, :producciones)
   end
   
 end
