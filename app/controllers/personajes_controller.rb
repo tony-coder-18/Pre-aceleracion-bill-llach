@@ -9,19 +9,26 @@ class PersonajesController < ApplicationController
     render json: @personaje, serializer: UnaPersonaSerializer
   end
 
-  def new
+  def create
+    @personaje = Personaje.create(personaje_params)
+    render json: @personaje
   end
 
-  def create 
-  end
-
-  def edit 
-  end 
-
-  def update 
+  def update
+    @personaje = Personaje.find(params[:id])
+    @personaje.update_attributes(personaje_params)
+    render json: @personaje
   end 
 
   def destroy 
-  end 
+    Personaje.destroy(params[:id])
+  end
+    
+
+  private
+
+  def personaje_params
+    params.require(:personaje).permit(:nombre,:imagen,:edad, :peso, :historia)
+  end
   
 end
